@@ -1,9 +1,10 @@
 using NUnit.Framework;
-using UnityEditor.Rendering;
-using UnityEngine;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
+using System.Linq;
+using UnityEngine;
+using static Alumette;
+using Random = UnityEngine.Random;
 
 public class SpawnMatch : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SpawnMatch : MonoBehaviour
     [SerializeField] private BoxCollider m_spawnableArea;
     [SerializeField] int m_row;
     [SerializeField] int m_col;
+    [SerializeField] private int percentOrignalAlumette;
     private GameObject m_prefabInstantiate;
     private float m_time = 0;
     private HashSet<Vector2Int> m_usedGridIndex = new HashSet<Vector2Int>();
@@ -25,12 +27,27 @@ public class SpawnMatch : MonoBehaviour
     {
         m_time += Time.deltaTime;
 
+        float randomEnumID = Random.Range(0, 100);
+
         if (m_time > 2f)
         {
             Vector3 matchPos = PickRandomPoint(m_spawnableArea.bounds);
             if (matchPos != Vector3.zero)
             {
                 m_prefabInstantiate = Instantiate(m_Prefab, matchPos, Quaternion.identity);
+                
+                if(m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
+                {
+                    if(randomEnumID < percentOrignalAlumette)
+                    {
+                        alumette.AlumetteType = AlumetteState.BaseState;
+                    }
+                    else
+                    {
+                        alumette.AlumetteType = (AlumetteState)Random.Range(0, 5);
+                    }
+                }
+
                 m_time = 0;
             }
         }

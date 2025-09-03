@@ -46,19 +46,19 @@ public class PlayerMouvement : MonoBehaviour
         Alumette alumette = other.gameObject.GetComponent<Alumette>();
         if (alumette != null)
         {
-            switch (alumette.alumetteState)
-            {
-                case Alumette.AlumetteState.baseState:
-                    _nbAlumette++;
-                    break;
-                case Alumette.AlumetteState.Flag:
-                    _haveFlag = true;
-                    break;
-                case Alumette.AlumetteState.PowerUp:
-                    //determinate
-                    break;
+            //switch (alumette.alumetteState)
+            //{
+            //    case Alumette.AlumetteState.baseState:
+            //        _nbAlumette++;
+            //        break;
+            //    case Alumette.AlumetteState.Flag:
+            //        _haveFlag = true;
+            //        break;
+            //    case Alumette.AlumetteState.PowerUp:
+            //        //determinate
+            //        break;
                     
-            }
+            //}
             Destroy(other.gameObject);
         }
         if (other.gameObject.tag == "Player")

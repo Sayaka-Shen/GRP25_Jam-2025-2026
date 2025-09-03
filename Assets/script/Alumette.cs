@@ -1,16 +1,34 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Alumette : MonoBehaviour
 {
     public enum AlumetteState
     {
-        baseState,
-        PowerUp,
-        Flag,
+        BaseState,
+        Dash,
+        Bouteille,
+        Savon, 
+        FireRing
     }
-    private AlumetteState _alumetteState;
-    
-    public AlumetteState alumetteState => _alumetteState;
-    
-    
+    public AlumetteState AlumetteType { get; set; }
+
+    public void ApplyEffect(PlayerMouvement player)
+    {
+        switch(AlumetteType)
+        {
+            case AlumetteState.Dash:
+                
+                break;
+            case AlumetteState.Bouteille:
+
+                break;
+            case AlumetteState.FireRing:
+
+                break;
+            case AlumetteState.Savon:
+
+                break;
+        }
+    }
 }
