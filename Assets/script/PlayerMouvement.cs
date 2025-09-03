@@ -181,7 +181,7 @@ public class PlayerMouvement : MonoBehaviour
             //    case Alumette.AlumetteState.PowerUp:
             //        //determinate
             //        break;
-                    
+
             //}
             Destroy(other.gameObject);
         }
@@ -192,9 +192,9 @@ public class PlayerMouvement : MonoBehaviour
             this.rb.linearVelocity = Vector3.zero;
             dir = new Vector3(this.transform.position.x - other.gameObject.transform.position.x, 0, this.transform.position.z - other.gameObject.transform.position.z);
             ApplyBump(dir, _forceBump);
-            if(_haveFlag)
+            if (_haveFlag)
                 _haveFlag = false;
-                
+
             // Interrompre le dash si collision avec un autre joueur
             if (_isDashing)
             {

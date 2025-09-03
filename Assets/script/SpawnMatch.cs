@@ -14,8 +14,9 @@ public class SpawnMatch : MonoBehaviour
     [SerializeField] int m_row;
     [SerializeField] int m_col;
     [SerializeField] private int percentOrignalAlumette;
+    [SerializeField] private float m_timeBeforeSpawning;
     private GameObject m_prefabInstantiate;
-    private float m_time = 0;
+    private float m_timer = 0;
     private HashSet<Vector2Int> m_usedGridIndex = new HashSet<Vector2Int>();
 
     private void Start()
@@ -25,11 +26,11 @@ public class SpawnMatch : MonoBehaviour
 
     private void Update()
     {
-        m_time += Time.deltaTime;
+        m_timer += Time.deltaTime;
 
         float randomEnumID = Random.Range(0, 100);
 
-        if (m_time > 2f)
+        if (m_timer > m_timeBeforeSpawning)
         {
             Vector3 matchPos = PickRandomPoint(m_spawnableArea.bounds);
             if (matchPos != Vector3.zero)
@@ -44,11 +45,11 @@ public class SpawnMatch : MonoBehaviour
                     }
                     else
                     {
-                        alumette.AlumetteType = (AlumetteState)Random.Range(0, 5);
+                        alumette.AlumetteType = (AlumetteState)Random.Range(0, Enum.GetValues(typeof(AlumetteState)).Cast<int>().Max());
                     }
                 }
 
-                m_time = 0;
+                m_timer = 0; 
             }
         }
     }

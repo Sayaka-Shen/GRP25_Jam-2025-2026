@@ -18,16 +18,22 @@ public class Alumette : MonoBehaviour
         switch(AlumetteType)
         {
             case AlumetteState.Dash:
-                
+                player.Dash();
                 break;
             case AlumetteState.Bouteille:
 
                 break;
             case AlumetteState.FireRing:
 
+                FireRing fireRing = player.gameObject.GetComponentInChildren<FireRing>();
+                if (fireRing != null)
+                {
+                    fireRing.gameObject.SetActive(true);   
+                }
+                
                 break;
             case AlumetteState.Savon:
-
+                player.EnableSliding();
                 break;
         }
     }
