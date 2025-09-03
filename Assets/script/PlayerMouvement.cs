@@ -12,6 +12,12 @@ public class PlayerMouvement : MonoBehaviour
     public float dashDuration = 0.3f;
     public float dashCooldown = 1f;
     
+    [Header("Glissement (Effet Glace)")]
+    public bool isSliding = false;
+    public float iceFriction = 0.05f; // Très faible friction comme sur la glace
+    public float iceAcceleration = 1.5f; // Accélération réduite pour moins de contrôle
+    public float maxIceSpeed = 15f; // Vitesse maximale sur glace
+    
     private int _nbAlumette = 0;
     private bool _haveFlag = false;
     private Alumette _alumette;
@@ -52,11 +58,46 @@ public class PlayerMouvement : MonoBehaviour
     {
         if (!_isDashing)
         {
-            // Mouvement normal
-            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-            rb.MovePosition(rb.position + move * moveSpeed * Time.fixedDeltaTime);
+            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);
+            
+            if (isSliding)
+            {
+                // Mode glace : très peu de contrôle, beaucoup d'inertie
+                Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                
+                // Applique la force d'entrée (contrôle réduit)
+                if (inputDirection != Vector3.zero)
+                {
+                    rb.AddForce(inputDirection * iceAcceleration, ForceMode.Acceleration);
+                }
+                
+                // Limite la vitesse maximale
+                if (horizontalVelocity.magnitude > maxIceSpeed)
+                {
+                    rb.linearVelocity = new Vector3(
+                        horizontalVelocity.normalized.x * maxIceSpeed,
+                        rb.linearVelocity.y,
+                        horizontalVelocity.normalized.z * maxIceSpeed
+                    );
+                }
+                
+                // Friction très faible (comme sur la glace)
+                rb.AddForce(-horizontalVelocity * iceFriction, ForceMode.Acceleration);
+            }
+            else
+            {
+                // Mouvement normal avec arrêt immédiat
+                Vector3 move = inputDirection * moveSpeed * Time.fixedDeltaTime;
+                rb.MovePosition(rb.position + move);
+                
+                // Arrêt immédiat quand pas d'input (mouvement normal)
+                if (inputDirection == Vector3.zero)
+                {
+                    rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+                }
+            }
         }
-        // Pendant le dash, on laisse la physique faire son travail
+        // Pendant le dash, la physique continue normalement
     }
     
     public void ApplyBump(Vector3 direction, float force)
@@ -106,6 +147,22 @@ public class PlayerMouvement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
+    }
+
+    // Méthodes publiques pour contrôler le glissement
+    public void EnableSliding()
+    {
+        isSliding = true;
+    }
+    
+    public void DisableSliding()
+    {
+        isSliding = false;
+    }
+    
+    public void ToggleSliding()
+    {
+        isSliding = !isSliding;
     }
 
     private void OnCollisionEnter(Collision other)
