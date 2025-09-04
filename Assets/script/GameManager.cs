@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private TextMeshProUGUI _startText; // attention, prends bien TextMeshProUGUI si c'est dans un Canvas UI
+    public bool HasGameEnd {  get; private set; }
 
     private void Awake()
     {
@@ -24,11 +25,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        HasGameEnd = false;
         StartCountDown();
     }
 
     public void OnGameEnd()
     {
+        HasGameEnd = true;
+
         PlayerMouvement[] players = FindObjectsByType<PlayerMouvement>(FindObjectsSortMode.None);
         foreach (PlayerMouvement player in players)
         {

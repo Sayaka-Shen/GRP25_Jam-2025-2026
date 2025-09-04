@@ -26,30 +26,34 @@ public class SpawnMatch : MonoBehaviour
 
     private void Update()
     {
-        m_timer += Time.deltaTime;
-
-        float randomEnumID = Random.Range(0, 100);
-
-        if (m_timer > m_timeBeforeSpawning)
+        if(!GameManager.Instance.HasGameEnd && !ZoneManager.Instance.MaxObstacleSpawnedReach)
         {
-            Vector3 matchPos = PickRandomPoint(m_spawnableArea.bounds);
-            if (matchPos != Vector3.zero)
-            {
-                m_prefabInstantiate = Instantiate(m_Prefab, matchPos, m_Prefab.transform.rotation);
-                
-                if(m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
-                {
-                    if(randomEnumID < percentOrignalAlumette)
-                    {
-                        alumette.AlumetteType = AlumetteState.BaseState;
-                    }
-                    else
-                    {
-                        alumette.AlumetteType = (AlumetteState)Random.Range(0, 7);
-                    }
-                }
+            m_timer += Time.deltaTime;
 
-                m_timer = 0; 
+            float randomEnumID = Random.Range(0, 100);
+
+            if (m_timer > m_timeBeforeSpawning)
+            {
+                Vector3 matchPos = PickRandomPoint(m_spawnableArea.bounds);
+                if (matchPos != Vector3.zero)
+                {
+                    m_prefabInstantiate = Instantiate(m_Prefab, matchPos, m_Prefab.transform.rotation);
+                    ZoneManager.Instance.NbObstacleSpawn++;
+
+                    if (m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
+                    {
+                        if (randomEnumID < percentOrignalAlumette)
+                        {
+                            alumette.AlumetteType = AlumetteState.BaseState;
+                        }
+                        else
+                        {
+                            alumette.AlumetteType = (AlumetteState)Random.Range(0, 7);
+                        }
+                    }
+
+                    m_timer = 0;
+                }
             }
         }
     }
