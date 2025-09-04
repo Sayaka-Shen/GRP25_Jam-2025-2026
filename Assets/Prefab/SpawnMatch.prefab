@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12, y: 0.1, z: 12}
+  m_Size: {x: 10, y: 0.1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5064330511276011617
 MonoBehaviour:
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Prefab: {fileID: 4376789687099114118, guid: f57f2603becea9b479f534d769139371, type: 3}
   m_spawnableArea: {fileID: 8429425154028356537}
-  m_row: 12
-  m_col: 12
-  percentOrignalAlumette: 70
+  m_row: 8
+  m_col: 8
+  percentOrignalAlumette: 60
   m_timeBeforeSpawning: 2

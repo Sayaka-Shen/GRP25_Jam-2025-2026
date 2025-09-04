@@ -22,6 +22,8 @@ public class PlayerMouvement : MonoBehaviour
     private Vector3 startDir;
     
     private int _nbAlumette = 0;
+    public int NbAlumette { get { return _nbAlumette; } set {  _nbAlumette = value; } }
+
     private bool _haveFlag = false;
     private Alumette.AlumetteState _alumette;
     [SerializeField] private float _forceBump = 5;
