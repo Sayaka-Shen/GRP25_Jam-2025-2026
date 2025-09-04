@@ -212,7 +212,6 @@ public class PlayerMouvement : MonoBehaviour
             if(alumette.AlumetteType == Alumette.AlumetteState.BaseState)
             {
                 _nbAlumette++;
-                ZoneManager.Instance.NbObstacleSpawn--;
             }
             else
             {

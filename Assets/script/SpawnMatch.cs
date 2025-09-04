@@ -15,6 +15,7 @@ public class SpawnMatch : MonoBehaviour
     [SerializeField] int m_col;
     [SerializeField] private int percentOrignalAlumette;
     [SerializeField] private float m_timeBeforeSpawning;
+    [SerializeField] private float m_delayAlumetteDespawn;
     private GameObject m_prefabInstantiate;
     private float m_timer = 0;
     private HashSet<Vector2Int> m_usedGridIndex = new HashSet<Vector2Int>();
@@ -26,7 +27,7 @@ public class SpawnMatch : MonoBehaviour
 
     private void Update()
     {
-        if(!GameManager.Instance.HasGameEnd && !ZoneManager.Instance.MaxObstacleSpawnedReach)
+        if(!GameManager.Instance.HasGameEnd)
         {
             m_timer += Time.deltaTime;
 
@@ -38,7 +39,7 @@ public class SpawnMatch : MonoBehaviour
                 if (matchPos != Vector3.zero)
                 {
                     m_prefabInstantiate = Instantiate(m_Prefab, matchPos, m_Prefab.transform.rotation);
-                    ZoneManager.Instance.NbObstacleSpawn++;
+                    Destroy(m_prefabInstantiate, m_delayAlumetteDespawn);
 
                     if (m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
                     {
