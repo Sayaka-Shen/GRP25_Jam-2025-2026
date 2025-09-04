@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,27 @@ public class GameManager : MonoBehaviour
         StartCountDown();
     }
 
+    public void OnGameEnd()
+    {
+        PlayerMouvement[] players = FindObjectsByType<PlayerMouvement>(FindObjectsSortMode.None);
+        foreach (PlayerMouvement player in players)
+        {
+            player._canMove = false;
+        }
+        Slider slider = FindAnyObjectByType<CampFire>().m_sliderAllumettes;
+        if (slider.value == 50)
+        { 
+            _startText.text = "That is a perfect draw !!";
+        }
+        else if (slider.value > 50)
+        {
+            _startText.text = "Player 1 Win !!";
+        }
+        else if (slider.value < 50)
+        {
+            _startText.text = "Player 2 Win !!";
+        }
+    }
     public void StartCountDown()
     {
         // Reset du texte et alpha
@@ -65,6 +87,11 @@ public class GameManager : MonoBehaviour
         {
             _startText.text = "";
             FindAnyObjectByType<Timer>().StartTimer();
+            PlayerMouvement[] players = FindObjectsByType<PlayerMouvement>(FindObjectsSortMode.None);
+            foreach (PlayerMouvement player in players)
+            {
+                player._canMove = true;
+            }
         });
     }
 }

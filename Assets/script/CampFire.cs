@@ -5,7 +5,7 @@ using static Alumette;
 public class CampFire : MonoBehaviour
 {
     [Header("Parameter")]
-    [SerializeField] private Slider m_sliderAllumettes;
+    [SerializeField] public Slider m_sliderAllumettes;
     private float m_pointSlider = 1;
     private float m_sliderOriginalValue = 50f;
     

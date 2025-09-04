@@ -52,7 +52,7 @@ public class Timer : MonoBehaviour
     private void OnTimerEnd()
     {
         _timerText.text = "00:00";
-        Debug.Log("Timer terminé !");
-        // Tu peux déclencher ici une autre action (game over, etc.)
+        GameManager.Instance.OnGameEnd();
+        
     }
 }

@@ -14,7 +14,7 @@ public class PlayerMouvement : MonoBehaviour
     public float dashDuration = 0.3f;
     public float dashCooldown = 1f;
     [SerializeField] private GameObject fireRing;
-    
+    public bool _canMove = false;
     [SerializeField] private float _durationWet = 10f;     // 3 minutes = 180 secondes
     
     [Header("Glissement (Effet Glace)")]
@@ -44,11 +44,13 @@ public class PlayerMouvement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!_canMove) return;
         moveInput = context.ReadValue<Vector2>();
     }
     
     private void Update()
     {
+        if (!_canMove) return;
         // Gestion du timer de dash
         if (_isDashing)
         {
@@ -82,6 +84,7 @@ public class PlayerMouvement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!_canMove) return;
         if (!_isDashing)
         {
             Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);

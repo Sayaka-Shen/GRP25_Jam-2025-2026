@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Alumette : MonoBehaviour
 {
+    public Material[] Materials;
     public enum AlumetteState
     {
         Nothing,
@@ -28,11 +29,9 @@ public class Alumette : MonoBehaviour
             objectRenderer = GetComponentInChildren<Renderer>();
         }
         
-        // Appliquer la couleur selon le type
-        ApplyColor();
     }
 
-    private void ApplyColor()
+    private void ApplyMat()
     {
         if (objectRenderer == null)
         {
@@ -40,60 +39,39 @@ public class Alumette : MonoBehaviour
             return;
         }
 
-        Color targetColor = GetColorForType(AlumetteType);
+        Material targetMat = GetMatForType(AlumetteType);
         
-        objectRenderer.material.color = targetColor;
+        objectRenderer.material = targetMat;
         
         
     }
 
-    private Color GetColorForType(AlumetteState type)
+    private Material GetMatForType(AlumetteState type)
     {
         switch (type)
         {
             case AlumetteState.BaseState:
-                return Color.white; // Blanc pour l'état de base
+                return Materials[0]; // Blanc pour l'état de base
                 
             case AlumetteState.Dash:
-                return Color.yellow; // Jaune pour le dash (vitesse)
+                return Materials[1]; // Jaune pour le dash (vitesse)
                 
             case AlumetteState.Bouteille:
-                return Color.blue; // Bleu pour la bouteille
+                return Materials[2]; // Bleu pour la bouteille
                 
             case AlumetteState.Savon:
-                return Color.cyan; // Cyan pour le savon (glissant)
+                return Materials[3]; // Cyan pour le savon (glissant)
                 
             case AlumetteState.FireRing:
-                return Color.red; // Rouge pour le feu
+                return Materials[4]; // Rouge pour le feu
                 
             default:
-                return Color.gray; // Gris par défaut
+                return Materials[0]; // Gris par défaut
         }
     }
 
-    public void ApplyEffect(PlayerMouvement player)
+    private void OnCollisionEnter(Collision other)
     {
-        switch(AlumetteType)
-        {
-            case AlumetteState.Dash:
-                player.Dash();
-                break;
-            case AlumetteState.Bouteille:
-
-                break;
-            case AlumetteState.FireRing:
-
-                FireRing fireRing = player.gameObject.GetComponentInChildren<FireRing>();
-                if (fireRing != null)
-                {
-                    fireRing.gameObject.SetActive(true);   
-                }
-                
-                break;
-            case AlumetteState.Savon:
-                player.EnableSliding();
-                break;
-        }
+        ApplyMat();
     }
-   
 }

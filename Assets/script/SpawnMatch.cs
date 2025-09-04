@@ -35,7 +35,7 @@ public class SpawnMatch : MonoBehaviour
             Vector3 matchPos = PickRandomPoint(m_spawnableArea.bounds);
             if (matchPos != Vector3.zero)
             {
-                m_prefabInstantiate = Instantiate(m_Prefab, matchPos, Quaternion.identity);
+                m_prefabInstantiate = Instantiate(m_Prefab, matchPos, m_Prefab.transform.rotation);
                 
                 if(m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
                 {
