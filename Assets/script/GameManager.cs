@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _startText; // attention, prends bien TextMeshProUGUI si c'est dans un Canvas UI
     public bool HasGameEnd {  get; private set; }
 
+    [SerializeField] public TextMeshProUGUI _player1Score; // attention, prends bien TextMeshProUGUI si c'est dans un Canvas UI
+    [SerializeField] public TextMeshProUGUI _player2Score; // attention, prends bien TextMeshProUGUI si c'est dans un Canvas UI
+    [SerializeField] public Image _player1PowerUp;
+    [SerializeField] public Image _player2PowerUp;
+    public Material[] Materials;
     private void Awake()
     {
         if (Instance == null)
@@ -27,6 +32,88 @@ public class GameManager : MonoBehaviour
     {
         HasGameEnd = false;
         StartCountDown();
+    }
+
+    public void OnAlumette(Alumette.AlumetteState alumetteState, bool Player1)
+    {
+        if (Player1)
+        {
+            switch (alumetteState)
+            {
+                case Alumette.AlumetteState.BaseState:
+                    _player1PowerUp.material = Materials[0];
+                    break;
+                case Alumette.AlumetteState.Dash:
+                    _player1PowerUp.material = Materials[1];
+                    break;
+                
+                case Alumette.AlumetteState.Bouteille:
+                    _player1PowerUp.material = Materials[2];
+                    break;
+                
+                case Alumette.AlumetteState.Savon:
+                    _player1PowerUp.material = Materials[3];
+                    break;
+                
+                case Alumette.AlumetteState.FireRing:
+                    _player1PowerUp.material = Materials[4];
+                    break;
+                
+                default:
+                    _player1PowerUp.material = Materials[0];
+                    break;
+            }
+            Color color = _player1PowerUp.material.color;
+            color.a = 255f; // Alpha au maximum (opaque)
+            _player1PowerUp.material.color = color;
+        }
+        else
+        {
+            
+            switch (alumetteState)
+            {
+                
+                case Alumette.AlumetteState.BaseState:
+                    _player2PowerUp.material = Materials[0];
+                    break;
+                case Alumette.AlumetteState.Dash:
+                    _player2PowerUp.material = Materials[1];
+                    break;
+                
+                case Alumette.AlumetteState.Bouteille:
+                    _player2PowerUp.material = Materials[2];
+                    break;
+                
+                case Alumette.AlumetteState.Savon:
+                    _player2PowerUp.material = Materials[3];
+                    break;
+                
+                case Alumette.AlumetteState.FireRing:
+                    _player2PowerUp.material = Materials[4];
+                    break;
+                
+                default:
+                    _player2PowerUp.material = Materials[0];
+                    break;
+            }
+            Color color = _player2PowerUp.material.color;
+            color.a = 255f; 
+            _player2PowerUp.material.color = color;
+            
+        }
+        
+    }
+
+    public void OnAlumetteUse(bool player)
+    {
+        if (player)
+        {
+            _player1PowerUp.material = null;
+        }
+        else
+        {
+            _player2PowerUp.material = null;
+        }
     }
 
     public void OnGameEnd()
@@ -90,6 +177,8 @@ public class GameManager : MonoBehaviour
         seq.OnComplete(() =>
         {
             _startText.text = "";
+            _startText.alpha = 1f;
+            _startText.transform.localScale = Vector3.one;
             FindAnyObjectByType<Timer>().StartTimer();
             PlayerMouvement[] players = FindObjectsByType<PlayerMouvement>(FindObjectsSortMode.None);
             foreach (PlayerMouvement player in players)
@@ -97,5 +186,33 @@ public class GameManager : MonoBehaviour
                 player._canMove = true;
             }
         });
+    }
+
+    public void AddPoints(int points, bool Player1)
+    {
+        if (Player1)
+        {
+            int currentScore = int.Parse(_player1Score.text);
+            int newScore = currentScore + points;
+            _player1Score.text = newScore.ToString();
+        }
+        else
+        {
+            int currentScore = int.Parse(_player2Score.text);
+            int newScore = currentScore + points;
+            _player2Score.text = newScore.ToString();
+        }
+    }
+
+    public void ResetPoint(bool Player1)
+    {
+        if (Player1)
+        {
+            _player1Score.text = "0";
+        }
+        else
+        {
+            _player2Score.text = "0";
+        }
     }
 }
