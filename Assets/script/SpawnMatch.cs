@@ -45,7 +45,7 @@ public class SpawnMatch : MonoBehaviour
                     }
                     else
                     {
-                        alumette.AlumetteType = (AlumetteState)Random.Range(0, Enum.GetValues(typeof(AlumetteState)).Cast<int>().Max());
+                        alumette.AlumetteType = (AlumetteState)Random.Range(0, 7);
                     }
                 }
 

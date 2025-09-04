@@ -6,11 +6,16 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
 public class PlayerMouvement : MonoBehaviour
 {
+    public bool Player1 = true;
+    public PlayerMouvement _otherPlayer;
     [Header("Paramètres")]
     public float moveSpeed = 5f;
     public float dashForce = 15f;
     public float dashDuration = 0.3f;
     public float dashCooldown = 1f;
+    [SerializeField] private GameObject fireRing;
+    
+    [SerializeField] private float _durationWet = 10f;     // 3 minutes = 180 secondes
     
     [Header("Glissement (Effet Glace)")]
     public bool isSliding = false;
@@ -18,17 +23,20 @@ public class PlayerMouvement : MonoBehaviour
     
     private int _nbAlumette = 0;
     private bool _haveFlag = false;
-    private Alumette _alumette;
+    private Alumette.AlumetteState _alumette;
     [SerializeField] private float _forceBump = 5;
-    
+
+    public GameObject _zoneSavon;
     // Variables pour le dash
     private bool _isDashing = false;
-    private bool _canDash = true;
+    private bool _canDash = false;
     private float _dashTimer = 0f;
-
+    public bool _isWet = false;
+    private float _timeRemaining;
+    private bool _isWetRunning = false;
     private Rigidbody rb;
     private Vector2 moveInput;
-
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,7 +46,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
     }
-
+    
     private void Update()
     {
         // Gestion du timer de dash
@@ -50,6 +58,26 @@ public class PlayerMouvement : MonoBehaviour
                 EndDash();
             }
         }
+        if (_isWetRunning)
+        {
+            _timeRemaining -= Time.deltaTime;
+
+            if (_timeRemaining <= 0f)
+            {
+                _timeRemaining = 0f;
+                _isWetRunning = false;
+                _isWet = false;
+            }
+
+        }
+        
+    }
+    public void StartTimer()
+    {
+        _timeRemaining = _durationWet;
+        _isWetRunning = true;
+        _isWet = true;
+        
     }
 
     private void FixedUpdate()
@@ -76,6 +104,7 @@ public class PlayerMouvement : MonoBehaviour
                 }
             }
         }
+
         // Pendant le dash, la physique continue normalement
     }
     
@@ -88,7 +117,6 @@ public class PlayerMouvement : MonoBehaviour
 
     public void Dash()
     {
-        if (!_canDash || _isDashing) return;
         
         Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
         
@@ -100,14 +128,40 @@ public class PlayerMouvement : MonoBehaviour
         
         StartDash(dashDirection);
     }
+
     
+    public void UseAlumette()
+    {
+        if (_alumette == null) return;
+        
+        switch (_alumette)
+        {
+            case Alumette.AlumetteState.Dash:
+                Dash();
+                print("dash");
+                break;
+            case Alumette.AlumetteState.Bouteille:
+                _otherPlayer.StartTimer();
+                print("bouteille");
+                break;
+            case Alumette.AlumetteState.Savon:
+                Instantiate(_zoneSavon, _otherPlayer.transform.position, _zoneSavon.transform.rotation);
+                break;
+            case Alumette.AlumetteState.FireRing:
+                    fireRing.gameObject.SetActive(true);
+                break;
+            default:
+                break;
+        }
+        _alumette = Alumette.AlumetteState.Nothing;
+    }
+
     private void StartDash(Vector3 direction)
     {
         _isDashing = true;
         _canDash = false;
         _dashTimer = dashDuration;
         
-        // Réinitialiser la vélocité et appliquer la force de dash
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(direction * dashForce, ForceMode.Impulse);
         
@@ -127,8 +181,9 @@ public class PlayerMouvement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
+    
 
-    // Méthodes publiques pour contrôler le glissement
+    
     public void EnableSliding()
     {
         isSliding = true;
@@ -149,19 +204,12 @@ public class PlayerMouvement : MonoBehaviour
         Alumette alumette = other.gameObject.GetComponent<Alumette>();
         if (alumette != null)
         {
-            //switch (alumette.alumetteState)
-            //{
-            //    case Alumette.AlumetteState.baseState:
-            //        _nbAlumette++;
-            //        break;
-            //    case Alumette.AlumetteState.Flag:
-            //        _haveFlag = true;
-            //        break;
-            //    case Alumette.AlumetteState.PowerUp:
-            //        //determinate
-            //        break;
-
-            //}
+            if(alumette.AlumetteType == Alumette.AlumetteState.BaseState)
+                _nbAlumette++;
+            else
+            {
+                _alumette = alumette.AlumetteType;
+            }
             Destroy(other.gameObject);
         }
         if (other.gameObject.tag == "Player")
@@ -189,6 +237,12 @@ public class PlayerMouvement : MonoBehaviour
             Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);
             startDir =  inputDirection;
             isSliding = true;
+        }
+        
+        if (other.gameObject.tag == "FireCamp" && !_isWet)
+        {
+            other.gameObject.GetComponent<CampFire>().AddAllumettes(_nbAlumette, Player1);
+            _nbAlumette = 0;
         }
     }
 
