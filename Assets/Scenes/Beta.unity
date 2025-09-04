@@ -676,11 +676,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563807611}
   m_CullTransparentMesh: 1
---- !u!1 &613718708 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3851080351717508660, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-  m_PrefabInstance: {fileID: 1985656546}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &635909705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1259,46 +1254,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
-      value: 48616dd5-5395-41d3-aebc-27f2c4233549
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
-      value: 'Player/UseAlumette[/XInputControllerWindows/rightTrigger]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1679066004}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UseAlumette
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerMouvement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5062027600983921537, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.5
@@ -1343,22 +1298,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6548225013744389080, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 6680016640235779683, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: Player1
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6680016640235779683, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: fireRing
-      value: 
-      objectReference: {fileID: 613718708}
-    - target: {fileID: 6680016640235779683, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
-      propertyPath: _zoneSavon
-      value: 
-      objectReference: {fileID: 1918238897319450599, guid: f268083ffa915554faecec2a0cb2846b, type: 3}
     - target: {fileID: 6680016640235779683, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
       propertyPath: _otherPlayer
       value: 
