@@ -8,6 +8,7 @@ public class PlayerMouvement : MonoBehaviour
 {
     public bool Player1 = true;
     public PlayerMouvement _otherPlayer;
+    
     [Header("Paramètres")]
     public float moveSpeed = 5f;
     public float dashForce = 15f;
@@ -22,6 +23,8 @@ public class PlayerMouvement : MonoBehaviour
     private Vector3 startDir;
     
     private int _nbAlumette = 0;
+    public int NbAlumette { get { return _nbAlumette; } set {  _nbAlumette = value; } }
+
     private bool _haveFlag = false;
     private Alumette.AlumetteState _alumette;
     [SerializeField] private float _forceBump = 5;
@@ -157,6 +160,7 @@ public class PlayerMouvement : MonoBehaviour
                 break;
         }
         _alumette = Alumette.AlumetteState.Nothing;
+        GameManager.Instance.OnAlumetteUse(Player1);
     }
 
     private void StartDash(Vector3 direction)
@@ -207,11 +211,16 @@ public class PlayerMouvement : MonoBehaviour
         Alumette alumette = other.gameObject.GetComponent<Alumette>();
         if (alumette != null)
         {
-            if(alumette.AlumetteType == Alumette.AlumetteState.BaseState)
+
+            if (alumette.AlumetteType == Alumette.AlumetteState.BaseState)
+            {
                 _nbAlumette++;
+                GameManager.Instance.AddPoints(1, Player1);
+            }
             else
             {
                 _alumette = alumette.AlumetteType;
+                GameManager.Instance.OnAlumette(_alumette, Player1);
             }
             Destroy(other.gameObject);
         }
@@ -245,6 +254,7 @@ public class PlayerMouvement : MonoBehaviour
         if (other.gameObject.tag == "FireCamp" && !_isWet)
         {
             other.gameObject.GetComponent<CampFire>().AddAllumettes(_nbAlumette, Player1);
+            GameManager.Instance.ResetPoint(Player1);
             _nbAlumette = 0;
         }
     }

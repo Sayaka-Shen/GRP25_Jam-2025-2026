@@ -24,6 +24,7 @@ public class FireRing : MonoBehaviour
         {
             PlayerMouvement playerMovement = collision.gameObject.GetComponent<PlayerMouvement>();
             playerMovement.ApplyBump(new Vector3(this.transform.position.x - collision.gameObject.transform.position.x, 0, this.transform.position.z - collision.gameObject.transform.position.z), m_forceBump);
+            playerMovement.NbAlumette = 0;
         }
     }
 }
