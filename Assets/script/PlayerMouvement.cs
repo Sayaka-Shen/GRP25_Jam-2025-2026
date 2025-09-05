@@ -39,6 +39,7 @@ public class PlayerMouvement : MonoBehaviour
     private bool _isWetRunning = false;
     private Rigidbody rb;
     private Vector2 moveInput;
+    public float _yMultiplicateur = 1;
     
     private void Awake()
     {
@@ -90,7 +91,7 @@ public class PlayerMouvement : MonoBehaviour
         if (!_canMove) return;
         if (!_isDashing)
         {
-            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);
+            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y * _yMultiplicateur);
             
             if (isSliding)
             {
@@ -124,7 +125,7 @@ public class PlayerMouvement : MonoBehaviour
     public void Dash()
     {
         
-        Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y).normalized;
+        Vector3 dashDirection = new Vector3(moveInput.x, 0, moveInput.y * _yMultiplicateur).normalized;
         
         // Si aucune direction n'est pressée, dash vers l'avant du joueur
         if (dashDirection == Vector3.zero)
@@ -144,23 +145,27 @@ public class PlayerMouvement : MonoBehaviour
         {
             case Alumette.AlumetteState.Dash:
                 Dash();
-                print("dash");
+                GameManager.Instance.ShakeCamera();
                 break;
             case Alumette.AlumetteState.Bouteille:
                 _otherPlayer.StartTimer();
-                print("bouteille");
+                GameManager.Instance.ShakeCamera();
                 break;
             case Alumette.AlumetteState.Savon:
                 Instantiate(_zoneSavon, _otherPlayer.transform.position, _zoneSavon.transform.rotation);
+                GameManager.Instance.ShakeCamera();
                 break;
             case Alumette.AlumetteState.FireRing:
                     fireRing.gameObject.SetActive(true);
+                    GameManager.Instance.ShakeCamera();
                 break;
             default:
                 break;
         }
+        GameManager.Instance.ShakeCamera();
         _alumette = Alumette.AlumetteState.Nothing;
         GameManager.Instance.OnAlumetteUse(Player1);
+        
         
     }
 
@@ -247,7 +252,7 @@ public class PlayerMouvement : MonoBehaviour
     {
         if (other.gameObject.tag == "Ice")
         {
-            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y);
+            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y * _yMultiplicateur);
             startDir =  inputDirection;
             isSliding = true;
         }

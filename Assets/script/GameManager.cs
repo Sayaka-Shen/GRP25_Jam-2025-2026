@@ -205,7 +205,15 @@ public class GameManager : MonoBehaviour
             _player2Score.text = newScore.ToString();
         }
     }
-
+    public void ShakeCamera()
+    {
+        Vector3 cam = Camera.main.transform.position;
+        Camera.main.transform.DOShakePosition(0.2f, 1f, 2, 90, false, true)
+            .OnComplete(() =>
+            {
+                Camera.main.transform.position = cam;
+            });
+    }
     public void ResetPoint(bool Player1)
     {
         if (Player1)
