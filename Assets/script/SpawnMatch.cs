@@ -20,7 +20,7 @@ public class SpawnMatch : MonoBehaviour
     private GameObject m_prefabToDestroy;
     private float m_timer = 0;
     private HashSet<Vector2Int> m_usedGridIndex = new HashSet<Vector2Int>();
-
+    private int _x = 0;
     private void Start()
     {
         ResetUsedGridIndex();
@@ -65,20 +65,23 @@ public class SpawnMatch : MonoBehaviour
     {
         float boundsXDist = Mathf.Abs(bounds.min.x - bounds.max.x);
         float boundsZDist = Mathf.Abs(bounds.min.z - bounds.max.z);
-
+        
         // m_col * m_row =  max essaie de la boucle au cas ou 
         for (int i = 0; i < m_col * m_row; i++)
         {
             int colIndex = Random.Range(0, m_col + 1);
             int rowIndex = Random.Range(0, m_row + 1);
             Vector2Int gridIndex = new Vector2Int(colIndex, rowIndex);
-
+            
             if (!m_usedGridIndex.Contains(gridIndex))
             {
                 float x = bounds.min.x + (boundsXDist / m_col) * colIndex;
                 float z = bounds.min.z + (boundsZDist / m_row) * rowIndex;
                 m_usedGridIndex.Add(gridIndex);
-
+                _x++;
+                if(_x >= m_col * m_row)
+                    m_usedGridIndex.Clear();
+                
                 return new Vector3(x, 10, z);
             }
         }
