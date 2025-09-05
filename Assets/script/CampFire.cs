@@ -20,9 +20,14 @@ public class CampFire : MonoBehaviour
             for (int i = 0; i < allumettes; i++)
             {
                 if (!player1)
+                {
                     m_sliderAllumettes.value += m_pointSlider;
+                }
                 else
+                {
                     m_sliderAllumettes.value -= m_pointSlider;
+                    
+                }
             }
     }
 }
