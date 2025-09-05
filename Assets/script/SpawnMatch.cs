@@ -54,9 +54,9 @@ public class SpawnMatch : MonoBehaviour
                             alumette.AlumetteType = (AlumetteState)Random.Range(0, 7);
                         }
                     }
-
-                    m_timer = 0;
                 }
+
+                m_timer = 0;
             }
         }
     }
