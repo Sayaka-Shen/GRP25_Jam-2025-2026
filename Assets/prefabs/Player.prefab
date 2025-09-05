@@ -364,7 +364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1: 1
   _otherPlayer: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 7
   dashForce: 15
   dashDuration: 0.3
   dashCooldown: 1
@@ -375,6 +375,7 @@ MonoBehaviour:
   _forceBump: 10
   _zoneSavon: {fileID: 0}
   _isWet: 0
+  _yMultiplicateur: 1
 --- !u!1001 &6698572903826002189
 PrefabInstance:
   m_ObjectHideFlags: 0
