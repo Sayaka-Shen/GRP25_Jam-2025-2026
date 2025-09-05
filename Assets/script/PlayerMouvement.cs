@@ -161,6 +161,7 @@ public class PlayerMouvement : MonoBehaviour
         }
         _alumette = Alumette.AlumetteState.Nothing;
         GameManager.Instance.OnAlumetteUse(Player1);
+        
     }
 
     private void StartDash(Vector3 direction)

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Image _player1PowerUp;
     [SerializeField] public Image _player2PowerUp;
     public Material[] Materials;
+    public GameObject[] _imageWin;
     private void Awake()
     {
         if (Instance == null)
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         HasGameEnd = false;
+        Color color = _player1PowerUp.color;
+        color.a = 0; 
+        _player1PowerUp.color = color;
+        _player2PowerUp.color = color;
         StartCountDown();
     }
 
@@ -40,9 +45,6 @@ public class GameManager : MonoBehaviour
         {
             switch (alumetteState)
             {
-                case Alumette.AlumetteState.BaseState:
-                    _player1PowerUp.material = Materials[0];
-                    break;
                 case Alumette.AlumetteState.Dash:
                     _player1PowerUp.material = Materials[1];
                     break;
@@ -58,14 +60,10 @@ public class GameManager : MonoBehaviour
                 case Alumette.AlumetteState.FireRing:
                     _player1PowerUp.material = Materials[4];
                     break;
-                
-                default:
-                    _player1PowerUp.material = Materials[0];
-                    break;
             }
-            Color color = _player1PowerUp.material.color;
-            color.a = 255f; // Alpha au maximum (opaque)
-            _player1PowerUp.material.color = color;
+            Color color = _player1PowerUp.color;
+            color.a = 255f; 
+            _player1PowerUp.color = color;
         }
         else
         {
@@ -79,11 +77,9 @@ public class GameManager : MonoBehaviour
                 case Alumette.AlumetteState.Dash:
                     _player2PowerUp.material = Materials[1];
                     break;
-                
                 case Alumette.AlumetteState.Bouteille:
                     _player2PowerUp.material = Materials[2];
                     break;
-                
                 case Alumette.AlumetteState.Savon:
                     _player2PowerUp.material = Materials[3];
                     break;
@@ -96,9 +92,9 @@ public class GameManager : MonoBehaviour
                     _player2PowerUp.material = Materials[0];
                     break;
             }
-            Color color = _player2PowerUp.material.color;
+            Color color = _player2PowerUp.color;
             color.a = 255f; 
-            _player2PowerUp.material.color = color;
+            _player2PowerUp.color = color;
             
         }
         
@@ -108,11 +104,15 @@ public class GameManager : MonoBehaviour
     {
         if (player)
         {
-            _player1PowerUp.material = null;
+            Color color = _player1PowerUp.color;
+            color.a = 0; 
+            _player1PowerUp.color = color;
         }
         else
         {
-            _player2PowerUp.material = null;
+            Color color = _player2PowerUp.color;
+            color.a = 0; 
+            _player2PowerUp.color = color;
         }
     }
 
@@ -128,15 +128,16 @@ public class GameManager : MonoBehaviour
         Slider slider = FindAnyObjectByType<CampFire>().m_sliderAllumettes;
         if (slider.value == 50)
         { 
-            _startText.text = "That is a perfect draw !!";
+            
         }
         else if (slider.value > 50)
         {
-            _startText.text = "Player 1 Win !!";
+            _imageWin[0].SetActive(true);
         }
         else if (slider.value < 50)
         {
-            _startText.text = "Player 2 Win !!";
+            _imageWin[1].SetActive(true);
+
         }
     }
     public void StartCountDown()
