@@ -40,6 +40,10 @@ public class PlayerMouvement : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
     public float _yMultiplicateur = 1;
+
+
+    [Header("Animator Param")]
+    [SerializeField] private Animator m_animatorChara;
     
     private void Awake()
     {
@@ -89,10 +93,11 @@ public class PlayerMouvement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_canMove) return;
+        Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y * _yMultiplicateur);
+
         if (!_isDashing)
         {
-            Vector3 inputDirection = new Vector3(moveInput.x, 0, moveInput.y * _yMultiplicateur);
-            
+
             if (isSliding)
             {
                 Vector3 move = startDir * moveSpeed * Time.fixedDeltaTime;
@@ -103,7 +108,7 @@ public class PlayerMouvement : MonoBehaviour
                 // Mouvement normal avec arrêt immédiat
                 Vector3 move = inputDirection * moveSpeed * Time.fixedDeltaTime;
                 rb.MovePosition(rb.position + move);
-                
+
                 // Arrêt immédiat quand pas d'input (mouvement normal)
                 if (inputDirection == Vector3.zero)
                 {
@@ -113,6 +118,14 @@ public class PlayerMouvement : MonoBehaviour
         }
 
         // Pendant le dash, la physique continue normalement
+        if (inputDirection.magnitude > 0.5f)
+        {
+            m_animatorChara.SetBool("IsWalking", true);
+        }
+        else
+        {
+            m_animatorChara.SetBool("IsWalking", false);
+        }
     }
     
     public void ApplyBump(Vector3 direction, float force)
