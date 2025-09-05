@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
         HasGameEnd = false;
         Color color = _player1PowerUp.color;
         color.a = 0; 
+        color = _player2PowerUp.color;
+        color.a = 0; 
         _player1PowerUp.color = color;
         _player2PowerUp.color = color;
         StartCountDown();
@@ -67,7 +69,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
             switch (alumetteState)
             {
                 
@@ -128,7 +129,7 @@ public class GameManager : MonoBehaviour
         Slider slider = FindAnyObjectByType<CampFire>().m_sliderAllumettes;
         if (slider.value == 50)
         { 
-            
+            _imageWin[2].SetActive(true);
         }
         else if (slider.value > 50)
         {

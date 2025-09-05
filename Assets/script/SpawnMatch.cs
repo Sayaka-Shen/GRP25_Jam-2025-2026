@@ -17,6 +17,7 @@ public class SpawnMatch : MonoBehaviour
     [SerializeField] private float m_timeBeforeSpawning;
     [SerializeField] private float m_delayAlumetteDespawn;
     private GameObject m_prefabInstantiate;
+    private GameObject m_prefabToDestroy;
     private float m_timer = 0;
     private HashSet<Vector2Int> m_usedGridIndex = new HashSet<Vector2Int>();
 
@@ -39,7 +40,8 @@ public class SpawnMatch : MonoBehaviour
                 if (matchPos != Vector3.zero)
                 {
                     m_prefabInstantiate = Instantiate(m_Prefab, matchPos, m_Prefab.transform.rotation);
-                    Destroy(m_prefabInstantiate, m_delayAlumetteDespawn);
+                    m_prefabToDestroy = m_prefabInstantiate;
+                    Destroy(m_prefabToDestroy, m_delayAlumetteDespawn);
 
                     if (m_prefabInstantiate != null && m_prefabInstantiate.TryGetComponent<Alumette>(out Alumette alumette))
                     {
