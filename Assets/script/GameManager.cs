@@ -71,10 +71,6 @@ public class GameManager : MonoBehaviour
         {
             switch (alumetteState)
             {
-                
-                case Alumette.AlumetteState.BaseState:
-                    _player2PowerUp.material = Materials[0];
-                    break;
                 case Alumette.AlumetteState.Dash:
                     _player2PowerUp.material = Materials[1];
                     break;
@@ -84,13 +80,8 @@ public class GameManager : MonoBehaviour
                 case Alumette.AlumetteState.Savon:
                     _player2PowerUp.material = Materials[3];
                     break;
-                
                 case Alumette.AlumetteState.FireRing:
                     _player2PowerUp.material = Materials[4];
-                    break;
-                
-                default:
-                    _player2PowerUp.material = Materials[0];
                     break;
             }
             Color color = _player2PowerUp.color;
@@ -208,7 +199,7 @@ public class GameManager : MonoBehaviour
     public void ShakeCamera()
     {
         Vector3 cam = Camera.main.transform.position;
-        Camera.main.transform.DOShakePosition(0.2f, 1f, 2, 90, false, true)
+        Camera.main.transform.DOShakePosition(0.2f, 0.2f, 10, 90, false, true)
             .OnComplete(() =>
             {
                 Camera.main.transform.position = cam;

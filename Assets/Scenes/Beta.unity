@@ -354,7 +354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -234.48953, y: -229.79973}
+  m_AnchoredPosition: {x: -234.48975, y: -229.7998}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &144390248
@@ -1379,6 +1379,18 @@ PrefabInstance:
       value: FireCamp (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7891244831075178787, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+      propertyPath: m_redFire
+      value: 
+      objectReference: {fileID: 1023241804}
+    - target: {fileID: 7891244831075178787, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+      propertyPath: m_baseFire
+      value: 
+      objectReference: {fileID: 1444236433}
+    - target: {fileID: 7891244831075178787, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+      propertyPath: m_blueFire
+      value: 
+      objectReference: {fileID: 1350433658}
+    - target: {fileID: 7891244831075178787, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
       propertyPath: m_pointSlider
       value: 1
       objectReference: {fileID: 0}
@@ -1567,6 +1579,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7b02522d8a2f24c926561667fb0f1e, type: 3}
+--- !u!1 &1023241804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4784905644335420432, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+  m_PrefabInstance: {fileID: 916771091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1043642057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7ff3ba517c3fe49b4bcdc485745ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1350433658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6206646269437058037, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+  m_PrefabInstance: {fileID: 916771091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1426697338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,6 +1838,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1426697338}
   m_CullTransparentMesh: 1
+--- !u!1 &1444236433 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 995828723358586577, guid: ae88b7cb4ca55ad4ea75a71684b50745, type: 3}
+  m_PrefabInstance: {fileID: 916771091}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1456288436
 PrefabInstance:
   m_ObjectHideFlags: 0
