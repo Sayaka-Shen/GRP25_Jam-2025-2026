@@ -49,11 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Materials:
-  - {fileID: 2100000, guid: fe058e8e3a76a5042a4b1eae2021bdb2, type: 2}
+  - {fileID: 2100000, guid: 74c64562c6ac1504cb957894ae115616, type: 2}
   - {fileID: 2100000, guid: fbc49366068e73e46bc11a56ea77d092, type: 2}
-  - {fileID: 2100000, guid: c5dd9bdca5283104984baa4f33797b4c, type: 2}
-  - {fileID: 2100000, guid: fd1a52c46beede143bd33267c3d33629, type: 2}
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2100000, guid: 3786740723bead64fba767abf81cc06e, type: 2}
+  - {fileID: 2100000, guid: e293286ad5f905343916e00dbf412424, type: 2}
+  - {fileID: 2100000, guid: d1ef10cea47f5b24caf03b0cfbada207, type: 2}
 --- !u!33 &5472180127268088082
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe058e8e3a76a5042a4b1eae2021bdb2, type: 2}
+  - {fileID: 2100000, guid: 8ae4c33fb8279054f9dcc6950a341d13, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
