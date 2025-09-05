@@ -1631,7 +1631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5064330511276011617, guid: 9e7b02522d8a2f24c926561667fb0f1e, type: 3}
       propertyPath: m_delayAlumetteDespawn
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5064330511276011617, guid: 9e7b02522d8a2f24c926561667fb0f1e, type: 3}
       propertyPath: percentOrignalAlumette
