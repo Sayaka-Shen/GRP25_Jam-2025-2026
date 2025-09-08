@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 433846047071638225, guid: e9f16d7642431df438e3f16792e6d57a, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1341614589492375940, guid: e9f16d7642431df438e3f16792e6d57a, type: 3}
       propertyPath: isSliding
       value: 0
@@ -441,6 +445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2806058279358466148, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5062027600983921537, guid: 28b0c429b3e4eed4bb112d118cafc559, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

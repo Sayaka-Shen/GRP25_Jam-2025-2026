@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
     public void OnStartButton()
     {
         // Charger la scène de jeu (à adapter selon votre gestion de scènes)
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Beta");
     }
     public void OnQuitButton()
     {

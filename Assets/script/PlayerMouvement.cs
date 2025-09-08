@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,6 +29,9 @@ public class PlayerMouvement : MonoBehaviour
     private bool _haveFlag = false;
     private Alumette.AlumetteState _alumette;
     [SerializeField] private float _forceBump = 5;
+    public SpriteRenderer[] SpritesToBlue;
+    public Color colorBlue;
+    public Color colorBase;
 
     public GameObject _zoneSavon;
     // Variables pour le dash
@@ -40,6 +44,7 @@ public class PlayerMouvement : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
     public float _yMultiplicateur = 1;
+    public List<SpriteRenderer> spritesToFlip;
 
 
     [Header("Animator Param")]
@@ -77,6 +82,7 @@ public class PlayerMouvement : MonoBehaviour
                 _timeRemaining = 0f;
                 _isWetRunning = false;
                 _isWet = false;
+                ChangeToBase();
             }
 
         }
@@ -88,6 +94,22 @@ public class PlayerMouvement : MonoBehaviour
         _isWetRunning = true;
         _isWet = true;
         
+    }
+
+    public void ChangeToBlue()
+    {
+        foreach (var sprite in SpritesToBlue)
+        {
+            sprite.color = colorBlue;
+        }
+    }
+
+    public void ChangeToBase()
+    {
+        foreach (var sprite in SpritesToBlue)
+        {
+            sprite.color = colorBase;
+        }
     }
 
     private void FixedUpdate()
@@ -126,6 +148,7 @@ public class PlayerMouvement : MonoBehaviour
         {
             m_animatorChara.SetBool("IsWalking", false);
         }
+        HandleSpriteFlip(-moveInput.x);
     }
     
     public void ApplyBump(Vector3 direction, float force)
@@ -161,6 +184,7 @@ public class PlayerMouvement : MonoBehaviour
                 GameManager.Instance.ShakeCamera();
                 break;
             case Alumette.AlumetteState.Bouteille:
+                _otherPlayer.ChangeToBlue();
                 _otherPlayer.StartTimer();
                 GameManager.Instance.ShakeCamera();
                 break;
@@ -175,7 +199,6 @@ public class PlayerMouvement : MonoBehaviour
             default:
                 break;
         }
-        GameManager.Instance.ShakeCamera();
         _alumette = Alumette.AlumetteState.Nothing;
         GameManager.Instance.OnAlumetteUse(Player1);
         
@@ -208,7 +231,19 @@ public class PlayerMouvement : MonoBehaviour
         _canDash = true;
     }
     
-
+    private void HandleSpriteFlip(float horizontal)
+    {
+        if (horizontal > 0.1f)
+        {
+            foreach (var sprite in spritesToFlip)
+                sprite.flipX = false; // regarde à droite
+        }
+        else if (horizontal < -0.1f)
+        {
+            foreach (var sprite in spritesToFlip)
+                sprite.flipX = true; // regarde à gauche
+        }
+    }
     
     public void EnableSliding()
     {
